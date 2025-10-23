@@ -1,0 +1,17 @@
+use userdetail
+print('=== MongoDB Database Status ===')
+print('Database:', db.getName())
+print('Total documents in userdetail collection:', db.userdetail.countDocuments({}))
+print('User registrations:', db.userdetail.countDocuments({type: 'user_registration'}))
+print('')
+print('=== All Stored User Registrations ===')
+db.userdetail.find({type: 'user_registration'}).sort({registeredAt: -1}).forEach(function(doc) {
+    print('---')
+    print('Name:', doc.name)
+    print('Email:', doc.email)
+    print('Registered:', doc.registeredAt)
+    print('Type:', doc.type)
+})
+print('')
+print('=== Raw Documents ===')
+db.userdetail.find({}).forEach(printjson)
